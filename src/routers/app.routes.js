@@ -9,12 +9,14 @@ let {createBook,getBooks,searchBooksByAuthor,updateBook,deleteBook} = require(".
 
 
 
-// Author apis
+//Create  Author apis
 router.post(
     "/author/create",
     validator.validateBodyPayload(authorSchema),
     createAuthor
 )
+
+// Fetch Author List
 router.get(
     "/author/list",
     ListOfAuthors
@@ -23,6 +25,7 @@ router.get(
 
 
 //Books Apis
+// Create Books api
 router.post(
     "/books/create",
     validator.validateBodyPayload(bookSchema),
@@ -38,20 +41,20 @@ router.get(
 
 //search Books by Author name
 router.get(
-    "/book",
+    "/books",
     searchBooksByAuthor
 )
 
 //Update books by Book id
 router.put(
-    "/book/update/:id",
+    "/books/update/:id",
     validator.validateBodyPayload(bookSchema),
     updateBook
 );
 
 //Delete book by Book id
 router.delete(
-    "/book/delete/:id",
+    "/books/delete/:id",
     deleteBook
 )
 

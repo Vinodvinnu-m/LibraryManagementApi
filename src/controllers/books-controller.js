@@ -5,9 +5,9 @@ exports.createBook = async (req, res) => {
     try {
         const book = new Book(req.body);
         await book.save();
-        res.status(201).json(book);
+         return res.status(200).send({ message: "Book created successfully", data: book });
     } catch (err) {
-    return res.status(200).send({ message: "Book updated successfully", data: booksData });
+       return res.status(400).send({ message: err?.message });
     }
 };
 
@@ -34,7 +34,7 @@ exports.getBooks = async (req, res) => {
             .skip((page - 1) * limit)
             .limit(parseInt(limit));
 
-        return res.status(200).send({ message: "Book updated successfully", data: booksData })
+        return res.status(200).send({ message: "Book Data Fetched successfully",total: booksData.length, data: booksData })
 
     } catch (err) {
         res.status(400).send({ error: err.message });
@@ -51,7 +51,7 @@ exports.searchBooksByAuthor = async (req, res) => {
         if (!author) return res.status(404).json({ message: 'Author not found' });
 
         const booksData = await Book.find({ author: author._id }).populate('author');
-        return res.status(200).send({ message: "Book updated successfully", data: booksData })
+        return res.status(200).send({ message: "Book Data Fetched successfully", data: booksData })
     } catch (err) {
         res.status(400).send({ error: err.message });
     }
@@ -73,8 +73,8 @@ exports.updateBook = async (req, res) => {
 
 exports.deleteBook = async (req, res) => {
     try {
-
-        let findBookAndDelete = await Book.findByIdAndDelete(req.params.id);        
+        let id = req.params.id
+        let findBookAndDelete = await Book.findByIdAndDelete(id);        
         return res.status(200).send({ message: "Book data deleted successfully", data: findBookAndDelete })
     } catch (err) {
         res.status(400).send({ error: err.message });

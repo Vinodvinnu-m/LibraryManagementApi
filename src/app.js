@@ -7,7 +7,7 @@ const dbConnection = require("./config/dbconnection");
 const routes = require("./routers/app.routes");
 
 app.use(bodyParser.json());
-app.use(express.json());
+// app.use(express.json());
 
 dbConnection();
 
